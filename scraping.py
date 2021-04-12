@@ -109,7 +109,7 @@ def mars_image(browser):
         html = browser.html
         img_soup = soup(html, 'html.parser')
         try:
-            img_url_rel_temp = img_soup.find('img', class_='wide-image').get('src')
+            img_url_rel_temp = img_soup.find_all('a', href =True,target="_blank")[2]['href']
             img_url_rel =  f"https://data-class-mars-hemispheres.s3.amazonaws.com/Mars_Hemispheres/{img_url_rel_temp}"
             img_title = img_soup.find('h2', class_='title').get_text()
             image_dict ={'img_url':img_url_rel,'title':img_title}
@@ -119,9 +119,9 @@ def mars_image(browser):
         hemisphere_image_urls.append(image_dict)
         browser.find_by_css('a.itemLink.product-item').first.click()
 
-    hemisphere_image_urls_dict= {item['title']:item for item in hemisphere_image_urls}
-    print(hemisphere_image_urls_dict)
-    return hemisphere_image_urls_dict
+    #hemisphere_image_urls_dict= {item['title']:item for item in hemisphere_image_urls}
+    #print(hemisphere_image_urls_dict)
+    return hemisphere_image_urls
 
 if __name__ == "__main__":
 
